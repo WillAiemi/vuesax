@@ -8,7 +8,7 @@
     <ol class="vs-breadcrumb--ol">
       <slot/>
       <li
-        v-for="item in items"
+        v-for="item in mappedItems"
         v-show="!hasSlot"
         :key="item.title"
         :class="{'vs-active':item.active,'disabled-link':item.disabled}"
@@ -64,6 +64,9 @@ export default {
       default:'left'
     }
   },
+  data:()=>({
+    mappedItems:[]
+  }),
   computed: {
     textClass() {
       const classes = {}
@@ -85,7 +88,7 @@ export default {
   },
   created() {
     if(this.items) {
-      this.items = this.items.map(item => {
+      this.mappedItems = this.items.map(item => {
         if (typeof item.title === "function") {
           return {
             ...item,
